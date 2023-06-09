@@ -1,5 +1,9 @@
+"use client";
+
+import { useRef, useState } from "react";
+
 const Home = () => {
-  const tasks = [
+  const dummyTasks = [
     {
       id: 1,
       title: "Buy groceries",
@@ -22,6 +26,23 @@ const Home = () => {
     },
   ];
 
+  const [tasks, setTasks] = useState(dummyTasks);
+
+  const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      const newItemTitle = event.currentTarget.value || "";
+      if (newItemTitle === "") return;
+
+      const newItem = {
+        id: tasks[tasks.length - 1].id + 1,
+        title: newItemTitle,
+        completed: false,
+      };
+      setTasks([...tasks, newItem]);
+      event.currentTarget.value = "";
+    }
+  };
+
   return (
     <div className="w-1/3 mx-auto">
       <div className="flex justify-between">
@@ -35,6 +56,7 @@ const Home = () => {
           className="w-full"
           type="text"
           placeholder="Create a new todo..."
+          onKeyDown={handleAddItem}
         />
       </div>
 
