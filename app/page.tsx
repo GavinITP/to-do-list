@@ -2,31 +2,14 @@
 
 import { useState } from "react";
 
-const Home = () => {
-  const dummyTasks = [
-    {
-      id: 1,
-      title: "Buy groceries",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Do laundry",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Walk the dog",
-      completed: true,
-    },
-    {
-      id: 4,
-      title: "Clean the house",
-      completed: false,
-    },
-  ];
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
-  const [tasks, setTasks] = useState(dummyTasks);
+const Home = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -34,11 +17,13 @@ const Home = () => {
       if (newItemTitle === "") return;
 
       const newItem = {
-        id: tasks[tasks.length - 1].id + 1,
+        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
         title: newItemTitle,
         completed: false,
       };
+
       setTasks([...tasks, newItem]);
+
       event.currentTarget.value = "";
     }
   };
