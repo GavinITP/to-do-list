@@ -13,7 +13,7 @@ const Home = () => {
 
   const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      const newItemTitle = event.currentTarget.value || "";
+      const newItemTitle = event.currentTarget.value.trim();
       if (newItemTitle === "") return;
 
       const newItem = {
@@ -22,15 +22,14 @@ const Home = () => {
         completed: false,
       };
 
-      setTasks([...tasks, newItem]);
+      setTasks((prevTasks) => [...prevTasks, newItem]);
 
       event.currentTarget.value = "";
     }
   };
 
   const handleDeleteItem = (id: number) => {
-    const newTasks = tasks.filter((task) => task.id !== id);
-    setTasks(newTasks);
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
   return (
