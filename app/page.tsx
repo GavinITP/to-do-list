@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const Home = () => {
   const dummyTasks = [
@@ -43,6 +43,11 @@ const Home = () => {
     }
   };
 
+  const handleDeleteItem = (id: number) => {
+    const newTasks = tasks.filter((task) => task.id !== id);
+    setTasks(newTasks);
+  };
+
   return (
     <div className="w-1/3 mx-auto">
       <div className="flex justify-between">
@@ -66,7 +71,12 @@ const Home = () => {
             <div className="flex" key={task.id}>
               <input type="checkbox" />
               <li className="flex-grow">{task.title}</li>
-              <button className="bg-red-300">delete icon</button>
+              <button
+                className="bg-red-300"
+                onClick={() => handleDeleteItem(task.id)}
+              >
+                delete icon
+              </button>
             </div>
           );
         })}
