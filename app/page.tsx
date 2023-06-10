@@ -1,6 +1,7 @@
 "use client";
 
 import Filter from "@/components/Filter";
+import ItemInput from "@/components/ItemInput";
 import TaskItem from "@/components/TaskItem";
 import { useEffect, useState } from "react";
 
@@ -27,23 +28,6 @@ const Home = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      const newItemTitle = event.currentTarget.value.trim();
-      if (newItemTitle === "") return;
-
-      const newItem = {
-        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
-        title: newItemTitle,
-        completed: false,
-      };
-
-      setTasks((prevTasks) => [...prevTasks, newItem]);
-
-      event.currentTarget.value = "";
-    }
-  };
-
   return (
     <div className="w-1/3 mx-auto">
       <div className="flex justify-between">
@@ -51,15 +35,7 @@ const Home = () => {
         <input type="checkbox" />
       </div>
 
-      <div className="flex mb-4">
-        <input type="checkbox" />
-        <input
-          className="w-full"
-          type="text"
-          placeholder="Create a new todo..."
-          onKeyDown={handleAddItem}
-        />
-      </div>
+      <ItemInput tasks={tasks} setTasks={setTasks} />
 
       <ul>
         {tasks
