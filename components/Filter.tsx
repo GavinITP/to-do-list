@@ -1,26 +1,37 @@
-import { Task } from "@/app/page";
 import { FilterType } from "@/app/page";
 
 interface Props {
-  tasks: Task[];
+  filter: FilterType;
   setFilter: (filter: FilterType) => void;
-  setTasks: (callback: (prevTasks: Task[]) => Task[]) => void;
 }
 
-const Filter = ({ tasks, setFilter, setTasks }: Props) => {
-  const handleClearCompleted = () => {
-    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
-  };
-
+const Filter = ({ filter, setFilter }: Props) => {
   return (
-    <div className="my-10 flex justify-between text-sm">
-      <p>{tasks.filter((task) => !task.completed).length} items left</p>
-      <div className="gap-10">
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("active")}>Active</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
-      </div>
-      <button onClick={handleClearCompleted}>Clear Completed</button>
+    <div className="text-md my-4 flex h-14 w-full items-center justify-center rounded-md bg-white px-6 font-bold text-gray-400">
+      <button
+        className={`focus:text-blue active:text-blue mx-3 ${
+          filter === "all" ? "text-blue-500" : ""
+        }`}
+        onClick={() => setFilter("all")}
+      >
+        All
+      </button>
+      <button
+        className={`focus:text-blue active:text-blue mx-3 ${
+          filter === "active" ? "text-blue-500" : ""
+        }`}
+        onClick={() => setFilter("active")}
+      >
+        Active
+      </button>
+      <button
+        className={`focus:text-blue active:text-blue mx-3 ${
+          filter === "completed" ? "text-blue-500" : ""
+        }`}
+        onClick={() => setFilter("completed")}
+      >
+        Completed
+      </button>
     </div>
   );
 };

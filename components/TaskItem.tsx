@@ -29,7 +29,7 @@ const TaskItem = ({ task, setTasks }: Props) => {
       />
       <div
         className={`ml-4 w-full flex-grow border-none text-sm ring-0 focus:outline-none ${
-          task.completed && "line-through"
+          task.completed && "text-gray-400 line-through"
         } `}
       >
         {task.title}
@@ -37,8 +37,8 @@ const TaskItem = ({ task, setTasks }: Props) => {
       <button onClick={() => handleDeleteItem(task.id)}>
         <Image
           src="icons/icon-cross.svg"
-          width={20}
-          height={20}
+          width={18}
+          height={18}
           alt="delete item"
         />
       </button>

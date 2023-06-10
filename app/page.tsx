@@ -2,6 +2,7 @@
 
 import Filter from "@/components/Filter";
 import ItemInput from "@/components/ItemInput";
+import Status from "@/components/Status";
 import TaskItem from "@/components/TaskItem";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -57,13 +58,12 @@ const Home = () => {
           .map((task) => (
             <TaskItem key={task.id} task={task} setTasks={setTasks} />
           ))}
-
-        <Filter
-          tasks={tasks}
-          setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
-          setTasks={setTasks}
-        />
+        <Status tasks={tasks} setTasks={setTasks} />
       </div>
+      <Filter
+        filter={filter}
+        setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
+      />
     </div>
   );
 };
