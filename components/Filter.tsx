@@ -13,7 +13,7 @@ const Filter = ({ tasks, setFilter, setTasks }: Props) => {
   };
 
   return (
-    <div className="flex justify-between my-10">
+    <div className="my-10 flex justify-between">
       <p>{tasks.filter((task) => !task.completed).length} items left</p>
       <div>
         <button onClick={() => setFilter("all")}>All</button>

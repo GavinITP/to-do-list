@@ -29,13 +29,13 @@ const Home = () => {
   }, [tasks]);
 
   return (
-    <div className="w-1/3 mx-auto">
+    <div className="mx-auto w-1/3">
       <div className="flex justify-between">
         <h1>TODO</h1>
         <input type="checkbox" />
       </div>
 
-      <ItemInput tasks={tasks} setTasks={setTasks} />
+      <ItemInput tasks={[]} setTasks={setTasks} />
 
       <ul>
         {tasks

@@ -24,7 +24,7 @@ const ItemInput = ({ tasks, setTasks }: Props) => {
   };
 
   return (
-    <div className="flex mb-4">
+    <div className="mb-4 flex">
       <input type="checkbox" />
       <input
         className="w-full"
