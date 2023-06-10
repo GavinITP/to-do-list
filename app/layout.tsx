@@ -15,7 +15,9 @@ interface Props {
 function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body className={`${josefin_Sans.className}`}>{children}</body>
+      <body className={`${josefin_Sans.className} bg-slate-500`}>
+        {children}
+      </body>
     </html>
   );
 }

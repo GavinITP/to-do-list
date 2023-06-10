@@ -30,7 +30,7 @@ const Home = () => {
   }, [tasks]);
 
   return (
-    <div className="mx-auto bg-slate-500 px-8 py-14">
+    <div className="mx-auto min-h-screen px-8 py-14">
       <div className="mb-10 flex items-baseline justify-between">
         <h1 className="text-3xl font-bold tracking-[0.5rem] text-white">
           TODO
