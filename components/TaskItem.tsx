@@ -20,7 +20,10 @@ const TaskItem = ({ task, setTasks }: Props) => {
   };
 
   return (
-    <div className="flex h-14 items-center border-b-2 bg-white px-6">
+    <div
+      onClick={() => handleCheck(task.id)}
+      className="flex h-14 items-center border-b-2 bg-white px-6"
+    >
       <input
         type="checkbox"
         className="h-6 w-6 rounded-full border-gray-300"
