@@ -8,8 +8,11 @@ interface Task {
   completed: boolean;
 }
 
+type Filter = "all" | "active" | "completed";
+
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<Filter>("all");
 
   // Get tasks when opening the app
   useEffect(() => {
@@ -43,6 +46,18 @@ const Home = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
+  const handleCheck = (id: number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const handleClearCompleted = () => {
+    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
+  };
+
   return (
     <div className="w-1/3 mx-auto">
       <div className="flex justify-between">
@@ -61,11 +76,22 @@ const Home = () => {
       </div>
 
       <ul>
-        {tasks.map((task) => {
-          return (
+        {tasks
+          .filter((task) => {
+            if (filter === "active") return !task.completed;
+            if (filter === "completed") return task.completed;
+            return task;
+          })
+          .map((task) => (
             <div className="flex" key={task.id}>
-              <input type="checkbox" />
-              <li className="flex-grow">{task.title}</li>
+              <input
+                type="checkbox"
+                onClick={() => handleCheck(task.id)}
+                checked={task.completed}
+              />
+              <li className={`flex-grow ${task.completed && "line-through"}`}>
+                {task.title}
+              </li>
               <button
                 className="bg-red-300"
                 onClick={() => handleDeleteItem(task.id)}
@@ -73,17 +99,16 @@ const Home = () => {
                 delete icon
               </button>
             </div>
-          );
-        })}
+          ))}
 
         <div className="flex justify-between my-10">
-          <p>{tasks.length} items left</p>
+          <p>{tasks.filter((task) => !task.completed).length} items left</p>
           <div>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
+            <button onClick={() => setFilter("all")}>All</button>
+            <button onClick={() => setFilter("active")}>Active</button>
+            <button onClick={() => setFilter("completed")}>Completed</button>
           </div>
-          <button>Clear Completed</button>
+          <button onClick={handleClearCompleted}>Clear Completed</button>
         </div>
       </ul>
     </div>
