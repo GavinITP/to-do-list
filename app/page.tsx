@@ -85,12 +85,7 @@ const Home = () => {
             return task;
           })
           .map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              handleCheck={handleCheck}
-              handleDeleteItem={handleDeleteItem}
-            />
+            <TaskItem key={task.id} task={task} setTasks={setTasks} />
           ))}
 
         <Filter
