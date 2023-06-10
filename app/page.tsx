@@ -47,7 +47,7 @@ const Home = () => {
 
       <ItemInput tasks={tasks} setTasks={setTasks} />
 
-      <div>
+      <div className="overflow-hidden rounded-md">
         {tasks
           .filter((task) => {
             if (filter === "active") return !task.completed;

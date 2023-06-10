@@ -13,9 +13,9 @@ const Filter = ({ tasks, setFilter, setTasks }: Props) => {
   };
 
   return (
-    <div className="my-10 flex justify-between">
+    <div className="my-10 flex justify-between text-sm">
       <p>{tasks.filter((task) => !task.completed).length} items left</p>
-      <div>
+      <div className="gap-10">
         <button onClick={() => setFilter("all")}>All</button>
         <button onClick={() => setFilter("active")}>Active</button>
         <button onClick={() => setFilter("completed")}>Completed</button>
