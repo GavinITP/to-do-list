@@ -3,6 +3,7 @@
 import Filter from "@/components/Filter";
 import ItemInput from "@/components/ItemInput";
 import TaskItem from "@/components/TaskItem";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export interface Task {
@@ -29,15 +30,24 @@ const Home = () => {
   }, [tasks]);
 
   return (
-    <div className="mx-auto w-1/3">
-      <div className="flex justify-between">
-        <h1>TODO</h1>
-        <input type="checkbox" />
+    <div className="mx-auto bg-slate-500 px-8 py-14">
+      <div className="mb-10 flex items-baseline justify-between">
+        <h1 className="text-3xl font-bold tracking-[0.5rem] text-white">
+          TODO
+        </h1>
+        <button>
+          <Image
+            src="icons/icon-moon.svg"
+            width={22}
+            height={22}
+            alt="toggle theme button"
+          />
+        </button>
       </div>
 
       <ItemInput tasks={tasks} setTasks={setTasks} />
 
-      <ul>
+      <div>
         {tasks
           .filter((task) => {
             if (filter === "active") return !task.completed;
@@ -53,7 +63,7 @@ const Home = () => {
           setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
           setTasks={setTasks}
         />
-      </ul>
+      </div>
     </div>
   );
 };
