@@ -58,12 +58,17 @@ const Home = () => {
           .map((task) => (
             <TaskItem key={task.id} task={task} setTasks={setTasks} />
           ))}
-        <Status tasks={tasks} setTasks={setTasks} />
+        <Status
+          tasks={tasks}
+          setTasks={setTasks}
+          filter={filter}
+          setFilter={setFilter}
+        />
       </div>
-      <Filter
-        filter={filter}
-        setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
-      />
+
+      <div className="md:hidden">
+        <Filter filter={filter} setFilter={setFilter} />
+      </div>
     </div>
   );
 };
