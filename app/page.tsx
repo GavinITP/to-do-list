@@ -1,11 +1,13 @@
 "use client";
 
-import Filter from "@/components/Filter";
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
+
 import ItemInput from "@/components/ItemInput";
 import Status from "@/components/Status";
 import TaskItem from "@/components/TaskItem";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Filter from "@/components/Filter";
 
 export interface Task {
   id: number;
@@ -19,16 +21,35 @@ const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
 
-  // Get tasks when opening the app
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) setTasks(JSON.parse(storedTasks));
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+
+    const theme = localStorage.getItem("theme");
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, []);
 
-  // Save when tasks change
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  const handleChangeTheme = () => {
+    const theme = localStorage.getItem("theme") === "dark" ? "" : "dark";
+    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  };
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") {
+      return !task.completed;
+    }
+    if (filter === "completed") {
+      return task.completed;
+    }
+    return true;
+  });
 
   return (
     <div className="mx-auto min-h-screen px-8 py-14">
@@ -36,7 +57,7 @@ const Home = () => {
         <h1 className="text-3xl font-bold tracking-[0.5rem] text-white">
           TODO
         </h1>
-        <button>
+        <button onClick={handleChangeTheme}>
           <Image
             src="icons/icon-moon.svg"
             width={22}
@@ -49,15 +70,9 @@ const Home = () => {
       <ItemInput tasks={tasks} setTasks={setTasks} />
 
       <div className="overflow-hidden rounded-md">
-        {tasks
-          .filter((task) => {
-            if (filter === "active") return !task.completed;
-            if (filter === "completed") return task.completed;
-            return task;
-          })
-          .map((task) => (
-            <TaskItem key={task.id} task={task} setTasks={setTasks} />
-          ))}
+        {filteredTasks.map((task) => (
+          <TaskItem key={task.id} task={task} setTasks={setTasks} />
+        ))}
         <Status
           tasks={tasks}
           setTasks={setTasks}
