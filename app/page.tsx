@@ -35,7 +35,7 @@ const Home = () => {
         <input type="checkbox" />
       </div>
 
-      <ItemInput tasks={[]} setTasks={setTasks} />
+      <ItemInput tasks={tasks} setTasks={setTasks} />
 
       <ul>
         {tasks

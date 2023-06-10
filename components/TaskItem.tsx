@@ -1,12 +1,11 @@
 import { Task } from "@/app/page";
 
 interface Props {
-  key: number;
   task: Task;
   setTasks: (callback: (prevTasks: Task[]) => Task[]) => void;
 }
 
-const TaskItem = ({ key, task, setTasks }: Props) => {
+const TaskItem = ({ task, setTasks }: Props) => {
   const handleDeleteItem = (id: number) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
@@ -20,10 +19,10 @@ const TaskItem = ({ key, task, setTasks }: Props) => {
   };
 
   return (
-    <div className="flex" key={key}>
+    <div className="flex">
       <input
         type="checkbox"
-        onClick={() => handleCheck(task.id)}
+        onChange={() => handleCheck(task.id)}
         checked={task.completed}
       />
       <li className={`flex-grow ${task.completed && "line-through"}`}>
