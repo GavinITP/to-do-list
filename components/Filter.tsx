@@ -4,10 +4,14 @@ import { FilterType } from "@/app/page";
 interface Props {
   tasks: Task[];
   setFilter: (filter: FilterType) => void;
-  handleClearCompleted: () => void;
+  setTasks: (callback: (prevTasks: Task[]) => Task[]) => void;
 }
 
-const Filter = ({ tasks, setFilter, handleClearCompleted }: Props) => {
+const Filter = ({ tasks, setFilter, setTasks }: Props) => {
+  const handleClearCompleted = () => {
+    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
+  };
+
   return (
     <div className="flex justify-between my-10">
       <p>{tasks.filter((task) => !task.completed).length} items left</p>

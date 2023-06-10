@@ -44,22 +44,6 @@ const Home = () => {
     }
   };
 
-  const handleDeleteItem = (id: number) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  };
-
-  const handleCheck = (id: number) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const handleClearCompleted = () => {
-    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
-  };
-
   return (
     <div className="w-1/3 mx-auto">
       <div className="flex justify-between">
@@ -91,7 +75,7 @@ const Home = () => {
         <Filter
           tasks={tasks}
           setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
-          handleClearCompleted={handleClearCompleted}
+          setTasks={setTasks}
         />
       </ul>
     </div>
