@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Task {
   id: number;
@@ -10,6 +10,17 @@ interface Task {
 
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  // Get tasks when opening the app
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) setTasks(JSON.parse(storedTasks));
+  }, []);
+
+  // Save when tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
