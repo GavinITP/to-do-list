@@ -1,18 +1,19 @@
 "use client";
 
+import Filter from "@/components/Filter";
 import { useEffect, useState } from "react";
 
-interface Task {
+export interface Task {
   id: number;
   title: string;
   completed: boolean;
 }
 
-type Filter = "all" | "active" | "completed";
+export type FilterType = "all" | "active" | "completed";
 
 const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<FilterType>("all");
 
   // Get tasks when opening the app
   useEffect(() => {
@@ -101,15 +102,11 @@ const Home = () => {
             </div>
           ))}
 
-        <div className="flex justify-between my-10">
-          <p>{tasks.filter((task) => !task.completed).length} items left</p>
-          <div>
-            <button onClick={() => setFilter("all")}>All</button>
-            <button onClick={() => setFilter("active")}>Active</button>
-            <button onClick={() => setFilter("completed")}>Completed</button>
-          </div>
-          <button onClick={handleClearCompleted}>Clear Completed</button>
-        </div>
+        <Filter
+          tasks={tasks}
+          setFilter={(filter: FilterType) => setFilter(filter as FilterType)}
+          handleClearCompleted={handleClearCompleted}
+        />
       </ul>
     </div>
   );
