@@ -1,6 +1,7 @@
 "use client";
 
 import Filter from "@/components/Filter";
+import TaskItem from "@/components/TaskItem";
 import { useEffect, useState } from "react";
 
 export interface Task {
@@ -84,22 +85,12 @@ const Home = () => {
             return task;
           })
           .map((task) => (
-            <div className="flex" key={task.id}>
-              <input
-                type="checkbox"
-                onClick={() => handleCheck(task.id)}
-                checked={task.completed}
-              />
-              <li className={`flex-grow ${task.completed && "line-through"}`}>
-                {task.title}
-              </li>
-              <button
-                className="bg-red-300"
-                onClick={() => handleDeleteItem(task.id)}
-              >
-                delete icon
-              </button>
-            </div>
+            <TaskItem
+              key={task.id}
+              task={task}
+              handleCheck={handleCheck}
+              handleDeleteItem={handleDeleteItem}
+            />
           ))}
 
         <Filter
