@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
-
 import ItemInput from "@/components/ItemInput";
 import Status from "@/components/Status";
 import TaskItem from "@/components/TaskItem";
 import Filter from "@/components/Filter";
+import Header from "@/components/Header";
 
 export interface Task {
   id: number;
@@ -35,12 +34,6 @@ const Home = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const handleChangeTheme = () => {
-    const theme = localStorage.getItem("theme") === "dark" ? "" : "dark";
-    localStorage.setItem("theme", theme);
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  };
-
   const filteredTasks = tasks.filter((task) => {
     if (filter === "active") {
       return !task.completed;
@@ -53,19 +46,7 @@ const Home = () => {
 
   return (
     <div className="mx-auto min-h-screen px-8 py-14">
-      <div className="mb-10 flex items-baseline justify-between">
-        <h1 className="text-3xl font-bold tracking-[0.5rem] text-white">
-          TODO
-        </h1>
-        <button onClick={handleChangeTheme}>
-          <Image
-            src="icons/icon-moon.svg"
-            width={22}
-            height={22}
-            alt="toggle theme button"
-          />
-        </button>
-      </div>
+      <Header />
 
       <ItemInput tasks={tasks} setTasks={setTasks} />
 
