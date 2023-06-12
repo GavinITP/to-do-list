@@ -38,6 +38,31 @@ const Home = () => {
     return true;
   });
 
+  const handleDragStart = (event: React.DragEvent, taskId: string) => {
+    event.dataTransfer.setData("taskId", taskId);
+  };
+
+  const handleDragOver = (event: React.DragEvent) => {
+    event.preventDefault(); // enables the target element to accept the dropped content
+  };
+
+  const handleDrop = (event: React.DragEvent, targetId: string) => {
+    event.preventDefault();
+
+    const sourceId = event.dataTransfer.getData("taskId");
+
+    if (sourceId !== targetId) {
+      const sourceIndex = tasks.findIndex((task) => task.id === sourceId);
+      const targetIndex = tasks.findIndex((task) => task.id === targetId);
+
+      const updatedTasks = [...tasks];
+      const [removedTask] = updatedTasks.splice(sourceIndex, 1);
+      updatedTasks.splice(targetIndex, 0, removedTask);
+
+      setTasks(updatedTasks);
+    }
+  };
+
   return (
     <div className="mx-auto min-h-screen px-8 py-14">
       <Header />
@@ -46,7 +71,15 @@ const Home = () => {
 
       <div className="overflow-hidden rounded-md">
         {filteredTasks.map((task) => (
-          <TaskItem key={task.id} task={task} setTasks={setTasks} />
+          <div
+            key={task.id}
+            draggable
+            onDragStart={(event) => handleDragStart(event, task.id)}
+            onDragOver={(event) => handleDragOver(event)}
+            onDrop={(event) => handleDrop(event, task.id)}
+          >
+            <TaskItem task={task} setTasks={setTasks} />
+          </div>
         ))}
         <Status
           tasks={tasks}
