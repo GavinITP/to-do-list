@@ -1,18 +1,19 @@
 import { Task } from "@/app/page";
 
+import { v4 } from "uuid";
+
 interface Props {
-  tasks: Task[];
   setTasks: (callback: (prevTasks: Task[]) => Task[]) => void;
 }
 
-const ItemInput = ({ tasks, setTasks }: Props) => {
+const ItemInput = ({ setTasks }: Props) => {
   const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       const newItemTitle = event.currentTarget.value.trim();
       if (newItemTitle === "") return;
 
       const newItem = {
-        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
+        id: v4(),
         title: newItemTitle,
         completed: false,
       };

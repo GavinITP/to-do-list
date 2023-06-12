@@ -9,7 +9,7 @@ import Filter from "@/components/Filter";
 import Header from "@/components/Header";
 
 export interface Task {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
 }
@@ -42,7 +42,7 @@ const Home = () => {
     <div className="mx-auto min-h-screen px-8 py-14">
       <Header />
 
-      <ItemInput tasks={tasks} setTasks={setTasks} />
+      <ItemInput setTasks={setTasks} />
 
       <div className="overflow-hidden rounded-md">
         {filteredTasks.map((task) => (

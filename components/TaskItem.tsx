@@ -7,11 +7,11 @@ interface Props {
 }
 
 const TaskItem = ({ task, setTasks }: Props) => {
-  const handleDeleteItem = (id: number) => {
+  const handleDeleteItem = (id: string) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  const handleCheck = (id: number) => {
+  const handleCheck = (id: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
@@ -27,8 +27,8 @@ const TaskItem = ({ task, setTasks }: Props) => {
       <input
         type="checkbox"
         className="h-6 w-6 rounded-full border-gray-300"
-        onChange={() => handleCheck(task.id)}
         checked={task.completed}
+        onChange={() => {}}
       />
       <div
         className={`ml-4 w-full flex-grow border-none text-sm ring-0 focus:outline-none ${
