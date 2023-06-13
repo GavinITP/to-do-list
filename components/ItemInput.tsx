@@ -25,7 +25,7 @@ const ItemInput = ({ setTasks }: Props) => {
   };
 
   return (
-    <div className="mb-4 flex h-14 items-center rounded-md bg-white px-6">
+    <div className="mb-4 flex h-14 items-center rounded-md bg-white px-6 shadow-sm">
       <input
         type="checkbox"
         className="h-6 w-6 rounded-full border-gray-300"

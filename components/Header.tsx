@@ -8,7 +8,7 @@ const handleChangeTheme = () => {
 
 const Header = () => {
   return (
-    <div className="mb-10 flex items-baseline justify-between">
+    <div className="mb-8 flex items-baseline justify-between">
       <h1 className="text-3xl font-bold tracking-[0.5rem] text-white">TODO</h1>
       <button onClick={handleChangeTheme}>
         <Image

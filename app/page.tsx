@@ -7,6 +7,7 @@ import Status from "@/components/Status";
 import TaskItem from "@/components/TaskItem";
 import Filter from "@/components/Filter";
 import Header from "@/components/Header";
+import Image from "next/image";
 
 export interface Task {
   id: string;
@@ -64,35 +65,52 @@ const Home = () => {
   };
 
   return (
-    <div className="mx-auto min-h-screen px-8 py-14">
-      <Header />
-
-      <ItemInput setTasks={setTasks} />
-
-      <div className="overflow-hidden rounded-md">
-        {filteredTasks.map((task) => (
-          <div
-            key={task.id}
-            draggable
-            onDragStart={(event) => handleDragStart(event, task.id)}
-            onDragOver={(event) => handleDragOver(event)}
-            onDrop={(event) => handleDrop(event, task.id)}
-          >
-            <TaskItem task={task} setTasks={setTasks} />
-          </div>
-        ))}
-        <Status
-          tasks={tasks}
-          setTasks={setTasks}
-          filter={filter}
-          setFilter={setFilter}
-        />
+    <>
+      <div className="absolute z-[-1] h-[220px] w-full">
+        <div className="relative h-full">
+          <Image
+            src="/background/bg-mobile-light.jpg"
+            alt="background"
+            className="h-full w-full object-cover"
+            fill={true}
+          />
+        </div>
       </div>
 
-      <div className="md:hidden">
-        <Filter filter={filter} setFilter={setFilter} />
+      <div className="mx-auto min-h-screen px-8 py-14">
+        <Header />
+
+        <ItemInput setTasks={setTasks} />
+
+        <div className="overflow-hidden rounded-md shadow-sm">
+          {filteredTasks.map((task) => (
+            <div
+              key={task.id}
+              draggable
+              onDragStart={(event) => handleDragStart(event, task.id)}
+              onDragOver={(event) => handleDragOver(event)}
+              onDrop={(event) => handleDrop(event, task.id)}
+            >
+              <TaskItem task={task} setTasks={setTasks} />
+            </div>
+          ))}
+          <Status
+            tasks={tasks}
+            setTasks={setTasks}
+            filter={filter}
+            setFilter={setFilter}
+          />
+        </div>
+
+        <div className="shadow-sm md:hidden">
+          <Filter filter={filter} setFilter={setFilter} />
+        </div>
+
+        <p className="mt-12 text-center text-base text-gray-400">
+          Drag and drop to reorder list
+        </p>
       </div>
-    </div>
+    </>
   );
 };
 
