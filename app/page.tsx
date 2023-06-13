@@ -8,6 +8,7 @@ import TaskItem from "@/components/TaskItem";
 import Filter from "@/components/Filter";
 import Header from "@/components/Header";
 import Image from "next/image";
+import { ThemeContextProvider } from "@/contexts/ThemeContext";
 
 export interface Task {
   id: string;
@@ -65,7 +66,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <ThemeContextProvider>
       <div className="absolute z-[-1] h-[220px] w-full">
         <div className="relative h-full">
           <Image
@@ -73,6 +74,7 @@ const Home = () => {
             alt="background"
             className="h-full w-full object-cover"
             fill={true}
+            priority={true}
           />
         </div>
       </div>
@@ -110,7 +112,7 @@ const Home = () => {
           Drag and drop to reorder list
         </p>
       </div>
-    </>
+    </ThemeContextProvider>
   );
 };
 
