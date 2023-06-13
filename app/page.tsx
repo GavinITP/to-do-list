@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import ItemInput from "@/components/ItemInput";
 import Status from "@/components/Status";
@@ -8,7 +8,7 @@ import TaskItem from "@/components/TaskItem";
 import Filter from "@/components/Filter";
 import Header from "@/components/Header";
 import Image from "next/image";
-import { ThemeContextProvider } from "@/contexts/ThemeContext";
+import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
 
 export interface Task {
   id: string;
@@ -65,6 +65,8 @@ const Home = () => {
     }
   };
 
+  const { themeMode } = useContext(ThemeContext);
+
   return (
     <ThemeContextProvider>
       <div className="absolute z-[-1] h-[220px] w-full">
@@ -79,7 +81,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mx-auto min-h-screen px-8 py-14">
+      <div className="mx-auto min-h-screen px-8 py-14 md:max-w-[80%] lg:max-w-[60%]">
         <Header />
 
         <ItemInput setTasks={setTasks} />
