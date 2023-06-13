@@ -14,7 +14,7 @@ const Status = ({ tasks, setTasks, filter, setFilter }: Props) => {
   };
 
   return (
-    <div className="flex h-14 items-center justify-between bg-white px-6 text-sm text-gray-500">
+    <div className="flex h-14 items-center justify-between bg-white px-6 text-sm text-gray-500 dark:bg-slate-700 dark:text-slate-400">
       <p>{tasks.filter((task) => !task.completed).length} items left</p>
       <div className="hidden md:block">
         <Filter
